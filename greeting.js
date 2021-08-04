@@ -1,42 +1,37 @@
-module.exports = function greetFactory(existingNames) {
+module.exports = () => {
+    let namesGreeted = []
+    let username
+    let counter = 0
 
-    var namesGreeted = existingNames || {};
-
-    function getCounter() {
-        var names = Object.keys(namesGreeted)
-        return names.length;
+    const setName = (name) => {
+        username = name.toLowerCase().trim()
     }
 
-    function setGreeting(name, checkedRadioBtn) {
-        if (checkedRadioBtn === "english") {
-            return "Hello, " + name;
-        }
-        else if (checkedRadioBtn === "afrikaans") {
-            return "Goeie môre, " + name;
-        }
-        else if (checkedRadioBtn === "isixhosa") {
-            return "Molo, " + name;
-        }
+    const getName = () => {
+        return username
     }
 
-    function nameVal(name) {
-        name = name.toLowerCase();
-
-        if (namesGreeted[name] === undefined) {
-            namesGreeted[name] = 0;
-        } else {
-            namesGreeted[name]++;
-        }
+    const setNamesGreeted = (namesGreetedInput) => {
+        namesGreeted = namesGreetedInput
     }
 
-    function getNameGreeted() {
-        return namesGreeted;
+    const userExists = () => {
+        if(!namesGreeted.includes(username)){
+            namesGreeted.push(username)
+        }
+        return namesGreeted
+    }
+
+    const greetCount = () => {
+        counter = namesGreeted.length
+        return counter
     }
 
     return {
-        getNameGreeted,
-        setGreeting,
-        getCounter,
-        nameVal,
+        setName,
+        getName,
+        setNamesGreeted,
+        userExists, 
+        greetCount
     }
 }
