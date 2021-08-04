@@ -68,7 +68,8 @@ p, input {
 }
 
 input {
-    border: 1px solid #eee;
+    border: 3px solid white;
+    border-radius: 10px;
 }
 
 .counter-section {
