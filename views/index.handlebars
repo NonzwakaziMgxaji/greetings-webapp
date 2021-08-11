@@ -3,41 +3,53 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
     <div class="container">
         <h1>GREETING WEB APP</h1>
-        <section class="text">
-            <div class="counter-section">
-                <form action="/name" method="POST">
-                    <div class="name-container">
-                        <p>Name <input type="text" name="name" id="name" required /></p>
-                    </div>
-                    <div class="radio-container">
-                        <input type="radio" name="language" value="English" required />
-                        <label for="language">English</label>
-                        <input type="radio" name="language" value="Afrikaans" required />
-                        <label for="language">Afrikaans</label>
-                        <input type="radio" name="language" value="IsiXhosa" required />
-                        <label for="language">IsiXhosa</label>
-                    </div>
-                    <input type="submit" id="submit" value="Greet Me" />
-                    <p class="counter">{{namesList}}</p>
-                    <input type="button" id="reset" value="Reset Counter" />
-                    <p class="greeting">{{greetText}}{{name}}</p><br><br>
-                </form>
+        <form name="theForm" action="/greeting" method="POST">
+
+
+            {{#if messages.warning}}
+            <span class="errorMsg" id="errorMessage">
+                {{messages.warning}}
+            </span><br><br>
+            {{/if}}
+
+            <div class="textbox">
+                <label for="name">Name</label>
+                <input class="userName" type="text" id="name" name="name" placeholder="Enter your name" onkeypress="return (event.charCode > 64 && 
+                event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
             </div>
-            <div class="radio-section">
-                <form action="/counter" method="post">
-                </form>
+
+            <div class=inputs>
+                <input class="radio" type="radio" name="language" id="english" value="english" required>
+                <label class="radioName" for="english">English</label><br><br>
+                <input class="radio" type="radio" name="language" id="afrikaans" value="afrikaans" required>
+                <label class="radioName" for="afrikaans">Afrikaans</label><br><br>
+                <input class="radio" type="radio" name="language" id="isixhosa" value="isixhosa" required>
+                <label class="radioName" for="isixhosa">IsiXhosa</label>
+            </div><br>
+
+            <div class="buttons">
+                <input class="greetBtn" type="submit" value="Greet Me">
+                <input class="resetBtn" type="submit" value="Reset">
+            </div><br><br>
+
+            <span class="greeting" id="greetID">{{name}}</span><br><br>
+
+            <div class="counter">
+                <label class="counterName">COUNTER:</label>
+                <span id="counter">{{counter}}</span>
             </div>
+
+            <a href="/greeted" class="list">Names Greeted</a>
+        </form>
     </div>
-    </section>
 </body>
 
 </html>

@@ -1,43 +1,73 @@
+const flash = require('express-flash');
+const session = require('express-session');
 const express = require('express')
 const exphbs = require('express-handlebars')
-const NamesGreeted = require('./greeting')
-const LanguagePicker = require('./language')
+const bodyParser = require('body-parser');
+const greetFactory = require('./greeting')
 
 const app = express()
-const namesGreeted = NamesGreeted()
-const languagePicker = LanguagePicker()
+const greeting = greetFactory()
 
 const handlebarSetup = exphbs({
     partialsDir: "./views/partials",
-    viewPath:  './views',
-    layoutsDir : './views/layouts'
+    viewPath: './views',
+    layoutsDir: './views/layouts'
 });
 
 app.engine('handlebars', handlebarSetup);
 app.set('view engine', 'handlebars')
+
 app.use(express.static('public'));
-app.use(express.urlencoded({ extended: false }))
-app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+// initialise session middleware - flash-express depends on it
+app.use(session({
+    secret: "<add a secret string here>",
+    resave: false,
+    saveUninitialized: true
+}));
+
+// initialise the flash middleware
+app.use(flash());
 
 app.get('/', (req, res) => {
     res.render('index', {
-        name: namesGreeted.getName(),
-        greetText: languagePicker.getGreetText(),
-        namesList: namesGreeted.greetCount()
+        name: greeting.greetingMsg(),
+        counter: greeting.getCounter(),
     })
 })
 
-app.post("/name", (req, res) => {
-    namesGreeted.setName(req.body.name)
-    languagePicker.setLanguage(req.body.language)
-    languagePicker.setGreetText()
-    namesGreeted.userExists()
-    console.log(namesGreeted.greetCount())
+app.post("/greeting", (req, res) => {
+    if (req.body.name != "") {
+        greeting.setName(req.body.name)
+        greeting.setLanguage(req.body.language),
+        greeting.nameVal(req.body.name)
+    }
+    else {
+        req.flash('warning', greeting.errors());
+    }
+
     res.redirect("/")
 })
 
-app.post("/counter", (req, res) => {
+//displays a list of all the users that have been greeted
+app.get("/greeted", (req, res) => {
+    console.log(greeting.getNamesGreeted());
+    res.render("greeted", {
+        userList: greeting.getNamesGreeted()
+    })
+})
 
+//shows how many times a user has been greeted
+app.get("/counter/:name", (req, res) => {
+    const currentName = req.params.name
+    let userData = greeting.getNameGreeted(currentName)
+    console.log(userData);
+
+    res.render("counter", {
+        userData
+    })
 })
 
 const PORT = process.env.PORT || 3012

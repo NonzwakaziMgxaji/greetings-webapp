@@ -1,37 +1,84 @@
-module.exports = () => {
-    let namesGreeted = []
-    let username
-    let counter = 0
+module.exports = function greetFactory(existingNames) {
+    var username;
+    var radioBtn;
+    var namesGreeted = existingNames || {};
+    var error;
 
-    const setName = (name) => {
-        username = name.toLowerCase().trim()
+    function setName(name) {
+        username = name;
     }
 
-    const getName = () => {
-        return username
+    function errors() {
+            if (!username) {
+                error = "Please enter a name in the textbox!"
+            }
+
+            return error;
     }
 
-    const setNamesGreeted = (namesGreetedInput) => {
-        namesGreeted = namesGreetedInput
-    }
-
-    const userExists = () => {
-        if(!namesGreeted.includes(username)){
-            namesGreeted.push(username)
+    function getName() {
+        if (username) {
+            return username;
         }
-        return namesGreeted
     }
 
-    const greetCount = () => {
-        counter = namesGreeted.length
-        return counter
+    function setLanguage(language) {
+        radioBtn = language;
+    }
+
+    function getLanguage() {
+        return radioBtn;
+    }
+
+    function greetingMsg() {
+        if (getLanguage() === "english") {
+            return "Hello, " + getName();
+        }
+        else if (getLanguage() === "afrikaans") {
+            return "Goeie môre, " + getName();
+        }
+        else if (getLanguage() === "isixhosa") {
+            return "Molo, " + getName();
+        }
+    }
+
+    function nameVal(name) {
+        name = name.toLowerCase();
+
+        if (namesGreeted[name] === undefined) {
+            namesGreeted[name] = 1;
+        } else {
+            namesGreeted[name]++;
+        }
+    }
+
+    function getCounter() {
+        var names = Object.keys(namesGreeted)
+        return names.length;
+    }
+
+    function getNamesGreeted() {
+        return namesGreeted;
+    }
+
+    function getNameGreeted(name) {
+        return {
+            name,
+            count: namesGreeted[name]
+        }
     }
 
     return {
         setName,
         getName,
-        setNamesGreeted,
-        userExists, 
-        greetCount
+        setLanguage,
+        getLanguage,
+        greetingMsg,
+        nameVal,
+        getCounter,
+        getNamesGreeted,
+        errors,
+        getNameGreeted
+        
     }
 }
