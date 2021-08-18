@@ -57,8 +57,8 @@ input[type="submit"], .list {
     width: 20rem;
     display: inline-block;
     text-decoration: none;
-    font-weight: bold;
-    font-size: large;
+    /* font-weight: bold;
+    font-size: large; */
 }
 
 /* .radioName{
@@ -72,7 +72,7 @@ input[type="submit"], .list {
 
 .resetBtn:hover {
     background: red;
-}
+} */
 
 a{
     margin: 10px;

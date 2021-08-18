@@ -1,18 +1,24 @@
-module.exports = function greetFactory(existingNames) {
+module.exports = function greetFactory(pool) {
     var username;
     var radioBtn;
+    var existingNames;
     var namesGreeted = existingNames || {};
     var error;
 
-    function setName(name) {
+    async function namesGreeted(){
+        namesGreeted = await pool.query("select distinct user_names from users");
+
+    }
+
+    async function setName(name) {
         username = name;
+        var q = await pool.query('insert into users (user_names, greeting_counts) values($1, $2)', [username, 1])
     }
 
     function errors() {
             if (!username) {
                 error = "Please enter a name in the textbox!"
             }
-
             return error;
     }
 
@@ -52,9 +58,29 @@ module.exports = function greetFactory(existingNames) {
         }
     }
 
-    function getCounter() {
-        var names = Object.keys(namesGreeted)
-        return names.length;
+
+
+   async function getCounter() {
+        // var names = Object.keys(namesGreeted)
+        // return names.length;
+    var names = await pool.query("select distinct user_names from users")
+    return names.rowCount;
+    }
+
+    async function getNameList() {
+
+    var names = await pool.query("select distinct user_names from users")
+
+    return names;
+    // .then(results=>{
+    //     return results;
+    // })
+    }
+
+    function reset(){
+        // var names = await pool.query("delete from users")
+        counter.reset = () => names = 0;
+        return counter;
     }
 
     function getNamesGreeted() {
@@ -78,7 +104,10 @@ module.exports = function greetFactory(existingNames) {
         getCounter,
         getNamesGreeted,
         errors,
-        getNameGreeted
+        getNameGreeted,
+        reset,
+        getNameList,
+        namesGreeted
         
     }
 }
