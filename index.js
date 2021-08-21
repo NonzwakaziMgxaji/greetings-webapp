@@ -31,7 +31,7 @@ if (process.env.DATABASE_URL && !local){
 } 
 
 // which db connection to use
-const connectionString = process.env.DATABASE_URL || 'postgresql://nzwakie:Bokang2851!@localhost:5432/names_greeted';
+const connectionString = process.env.DATABASE_URL || 'postgres://qybkymezjejbdp:4de994b921d5813c0322db4b75387839eb3c3dea1361ef03bb2f212b2f852a0a@ec2-35-168-145-180.compute-1.amazonaws.com:5432/d52u8u9sgitnef';
 
 const pool = new Pool({
     connectionString,
@@ -61,7 +61,6 @@ app.get('/', async (req, res) => {
 app.post("/greeting", async (req, res) => {
     try {
         if (req.body.name != "") {
-            // console.log(req.body.name);
             await greeting.setName(req.body.name)
              greeting.setLanguage(req.body.language),
              greeting.nameVal(req.body.name)
@@ -74,12 +73,10 @@ app.post("/greeting", async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-    
 })
 
 //displays a list of all the users that have been greeted
 app.get("/greeted", async (req, res) => {
-    // console.log(greeting.getNamesGreeted());
     res.render("greeted", {
      userList: greeting.getNameList()
     })

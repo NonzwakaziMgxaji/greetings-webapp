@@ -66,7 +66,7 @@ input[type="submit"], .list {
     font-size: large;
 } */
 
-.greetBtn:hover {
+/* .greetBtn:hover {
     background: green;
 }
 
@@ -78,9 +78,9 @@ a{
     margin: 10px;
 }
 
-a:hover {
+/* a:hover {
         background: green;
-}
+} */
 
 
 .counterName{
