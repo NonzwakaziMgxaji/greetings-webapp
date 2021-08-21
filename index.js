@@ -31,7 +31,7 @@ if (process.env.DATABASE_URL && !local){
 } 
 
 // which db connection to use
-const connectionString = process.env.DATABASE_URL || 'postgres://qybkymezjejbdp:4de994b921d5813c0322db4b75387839eb3c3dea1361ef03bb2f212b2f852a0a@ec2-35-168-145-180.compute-1.amazonaws.com:5432/d52u8u9sgitnef';
+const connectionString = process.env.DATABASE_URL || 'postgres://uqjpgztocqhgpx:b17656ff636fa9c2283049a4759703898d355dba901b4dbc80eed576109e00fc@ec2-54-159-35-35.compute-1.amazonaws.com:5432/dff5gcmvgia0d0';
 
 const pool = new Pool({
     connectionString,
