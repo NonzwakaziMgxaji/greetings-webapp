@@ -15,12 +15,16 @@ module.exports = function greetFactory(pool) {
         var q = await pool.query('insert into users (user_names, greeting_counts) values($1, $2)', [username, 1])
     }
 
-    function errors() {
-            if (!username) {
-                error = "Please enter a name in the textbox!"
-            }
-            return error;
-    }
+    // function errors() {
+    //         if (!username && !radioBtn) {
+    //             error = "Please enter a name in the textbox!vsbhjksdhufsdv"
+    //         } else if (!username){
+    //             error = "Pleadmjskb"
+    //         } else if (!language){
+    //             error = "Pleadmhjkllllljskb"
+    //         } 
+    //         return error;
+    // }
 
     function getName() {
         if (username) {
@@ -67,30 +71,29 @@ module.exports = function greetFactory(pool) {
     return names.rowCount;
     }
 
+   
     async function getNameList() {
 
     var names = await pool.query("select distinct user_names from users")
 
-    return names;
-    // .then(results=>{
-    //     return results;
-    // })
+    return names.rows;
     }
 
-    function reset(){
-        // var names = await pool.query("delete from users")
-        counter.reset = () => names = 0;
-        return counter;
+    async function reset(){
+        var resetAll = await pool.query("delete from users")
+        // counter.reset = () => names = 0;
+        return resetAll;
     }
 
     function getNamesGreeted() {
         return namesGreeted;
     }
 
-    function getNameGreeted(name) {
+    async function getNameGreeted(name) {
+        var numTimes = await pool.query("select count(*) from users where user_names=$1", [name])
         return {
             name,
-            count: namesGreeted[name]
+            count: numTimes.rows[0].count
         }
     }
 
@@ -103,7 +106,7 @@ module.exports = function greetFactory(pool) {
         nameVal,
         getCounter,
         getNamesGreeted,
-        errors,
+        // errors,
         getNameGreeted,
         reset,
         getNameList,

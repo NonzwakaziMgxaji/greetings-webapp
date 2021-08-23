@@ -36,7 +36,8 @@
 
             <div class="buttons">
                 <input class="greetBtn" type="submit" value="Greet Me">
-                <input class="resetBtn" type="submit" value="Reset">
+                {{!-- <input class="resetBtn" type="submit" value="Reset"> --}}
+                
             </div><br><br>
 
             <span class="greeting" id="greetID">{{name}}</span><br><br>
@@ -47,7 +48,14 @@
             </div>
 
             <a href="/greeted" class="list">Names Greeted</a>
+
         </form>
+
+        <form action="/reset" method="POST">
+        <button type="submit" class="resetBtn">Reset</button>
+        </form>
+
+        <script src="timer.js"></script>
     </div>
 </body>
 

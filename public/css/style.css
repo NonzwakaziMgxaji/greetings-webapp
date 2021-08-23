@@ -46,7 +46,7 @@ input[type="text"]{
     margin-left: 5px;
 }
 
-input[type="submit"], .list {
+input[type="submit"], .list, .resetBtn {
     background:rgba(116, 111, 111, 0.5);
     align-self: center;
     padding: 0.5rem;

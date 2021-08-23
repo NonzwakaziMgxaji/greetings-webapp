@@ -62,15 +62,19 @@ app.get('/', async (req, res) => {
 
 app.post("/greeting", async (req, res) => {
     try {
-        if (req.body.name != "") {
+        if (req.body.name && req.body.language) {
             await greeting.setName(req.body.name)
              greeting.setLanguage(req.body.language),
              greeting.nameVal(req.body.name)
          }
-         else {
-             req.flash('warning', greeting.errors());
+         else if (!req.body.name && !req.body.language){
+             req.flash('warning', "Please enter name and select language");
+         } else if(!req.body.name){
+            req.flash('warning', "Please enter name in the textbox below");
+         } else if (!req.body.language){
+            req.flash('warning', "Please select language of choice");
          }
-     
+        
          res.redirect("/")
     } catch (error) {
         console.log(error);
@@ -79,22 +83,34 @@ app.post("/greeting", async (req, res) => {
 
 //displays a list of all the users that have been greeted
 app.get("/greeted", async (req, res) => {
-    res.render("greeted", {
-     userList: greeting.getNameList()
+    greeting.getNameList()
+    .then(result=>{
+        console.log(result);
+        res.render("greeted", {
+            userList: result
+           })
     })
-    console.log(greeting.getNameList())
 })
 
 
 //shows how many times a user has been greeted
 app.get("/counter/:name", (req, res) => {
     const currentName = req.params.name
-    let userData = greeting.getNameGreeted(currentName)
-    console.log(userData);
-
-    res.render("counter", {
-        userData
+    greeting.getNameGreeted(currentName)
+    
+    .then(result=>{
+        console.log(result)
+        res.render("counter", {
+            result
+        })
     })
+
+})
+
+app.post("/reset", (req, res) =>{
+    pool.query("truncate users")
+// greeting.reset()
+    res.redirect("/")
 })
 
 const PORT = process.env.PORT || 3013

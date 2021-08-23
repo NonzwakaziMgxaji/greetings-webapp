@@ -11,7 +11,8 @@
 
 <body>
     {{#each userList}}
-    <ul><li><a href="/counter/{{@key}}">{{@key}}</a></li></ul>
+    {{!-- <ul><li><a href="/counter/{{@key}}">{{@key}}</a></li></ul> --}}
+    <a href="/counter/{{user_names}}">{{user_names}}</a>
     {{/each}}
 </body>
 
