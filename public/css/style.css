@@ -57,30 +57,43 @@ input[type="submit"], .list, .resetBtn {
     width: 20rem;
     display: inline-block;
     text-decoration: none;
-    /* font-weight: bold;
-    font-size: large; */
 }
 
-/* .radioName{
-    font-weight: bold;
-    font-size: large;
-} */
+.back, .home{
+    background:rgba(116, 111, 111, 0.5);
+    align-self: center;
+    padding: 0.5rem;
+    border: none;
+    cursor: pointer;
+    color: white;
+    border-radius: 1rem;
+    width: 10rem;
+    float: left;
+}
 
-/* .greetBtn:hover {
+.greetBtn:hover {
     background: green;
 }
 
 .resetBtn:hover {
     background: red;
-} */
+}
 
 a{
     margin: 10px;
 }
 
-/* a:hover {
+.list:hover {
         background: green;
-} */
+}
+
+.back:hover {
+    background: green;
+}
+
+.home:hover {
+    background: green;
+}
 
 
 .counterName{

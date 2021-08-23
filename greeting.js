@@ -5,26 +5,14 @@ module.exports = function greetFactory(pool) {
     var namesGreeted = existingNames || {};
     var error;
 
-    async function namesGreeted(){
+    async function namesGreeted() {
         namesGreeted = await pool.query("select distinct user_names from users");
-
     }
 
     async function setName(name) {
         username = name;
         var q = await pool.query('insert into users (user_names, greeting_counts) values($1, $2)', [username, 1])
     }
-
-    // function errors() {
-    //         if (!username && !radioBtn) {
-    //             error = "Please enter a name in the textbox!vsbhjksdhufsdv"
-    //         } else if (!username){
-    //             error = "Pleadmjskb"
-    //         } else if (!language){
-    //             error = "Pleadmhjkllllljskb"
-    //         } 
-    //         return error;
-    // }
 
     function getName() {
         if (username) {
@@ -62,26 +50,19 @@ module.exports = function greetFactory(pool) {
         }
     }
 
-
-
-   async function getCounter() {
-        // var names = Object.keys(namesGreeted)
-        // return names.length;
-    var names = await pool.query("select distinct user_names from users")
-    return names.rowCount;
+    async function getCounter() {
+        var names = await pool.query("select distinct user_names from users")
+        return names.rowCount;
     }
 
-   
+
     async function getNameList() {
-
-    var names = await pool.query("select distinct user_names from users")
-
-    return names.rows;
+        var names = await pool.query("select distinct user_names from users")
+        return names.rows;
     }
 
-    async function reset(){
+    async function reset() {
         var resetAll = await pool.query("delete from users")
-        // counter.reset = () => names = 0;
         return resetAll;
     }
 
@@ -106,11 +87,10 @@ module.exports = function greetFactory(pool) {
         nameVal,
         getCounter,
         getNamesGreeted,
-        // errors,
         getNameGreeted,
         reset,
         getNameList,
         namesGreeted
-        
+
     }
 }

@@ -8,7 +8,7 @@ const pg = require("pg");
 const Pool = pg.Pool;
 
 const app = express()
-
+// const timer = require('./public/css/timer')
 const handlebarSetup = exphbs({
     partialsDir: "./views/partials",
     viewPath: './views',
@@ -31,7 +31,9 @@ if (process.env.DATABASE_URL && !local){
 } 
 
 // which db connection to use
-const connectionString = process.env.DATABASE_URL || 'postgres://uqjpgztocqhgpx:b17656ff636fa9c2283049a4759703898d355dba901b4dbc80eed576109e00fc@ec2-54-159-35-35.compute-1.amazonaws.com:5432/dff5gcmvgia0d0';
+const connectionString = process.env.DATABASE_URL || 'postgresql://nzwakie:Bokang2851!@localhost:5432/names_greeted';
+
+// const connectionString = process.env.DATABASE_URL || 'postgres://uqjpgztocqhgpx:b17656ff636fa9c2283049a4759703898d355dba901b4dbc80eed576109e00fc@ec2-54-159-35-35.compute-1.amazonaws.com:5432/dff5gcmvgia0d0';
 
 const pool = new Pool({
     connectionString,
@@ -68,7 +70,14 @@ app.post("/greeting", async (req, res) => {
              greeting.nameVal(req.body.name)
          }
          else if (!req.body.name && !req.body.language){
-             req.flash('warning', "Please enter name and select language");
+            req.flash('warning', "Please enter name and select language");
+
+            //  setTimeout(() => {
+            //     req.flash('warning', "Please enter name and select language");
+                
+
+            //  },2000);
+          
          } else if(!req.body.name){
             req.flash('warning', "Please enter name in the textbox below");
          } else if (!req.body.language){
