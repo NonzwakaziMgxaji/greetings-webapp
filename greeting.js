@@ -3,7 +3,6 @@ module.exports = function greetFactory(pool) {
     var radioBtn;
     var existingNames;
     var namesGreeted = existingNames || {};
-    var error;
 
     async function namesGreeted() {
         namesGreeted = await pool.query("select distinct user_names from users");
@@ -91,6 +90,5 @@ module.exports = function greetFactory(pool) {
         reset,
         getNameList,
         namesGreeted
-
     }
 }

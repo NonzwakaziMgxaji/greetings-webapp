@@ -11,22 +11,74 @@ const pool = new Pool({
     connectionString
 });
 
-describe('The greetings-webapp database', function(){
+describe('The greetings-webapp database', function () {
 
-    beforeEach(async function(){
+    beforeEach(async function () {
         // clean the tables before each test run
         await pool.query("delete from users;");
     });
 
-    it('should pass the db test', async function(){
-        // the Factory Function is called greetFactory
+    it('should be able to count the names greeted', async function () {
+        let greeting = greetFactory(pool);
+        await greeting.setName("Nzwakie");
+        await greeting.setName("Nzwakie");
+        assert.equal({}, await greeting.getNameGreeted())
+    });
+
+    it('should be able to count the names greeted', async function () {
         let greeting = greetFactory(pool);
         await greeting.setName("Nzwakie");
         await greeting.setName("codex");
-        assert.equal(1, await greeting.getCounter())
+        assert.equal(2, await greeting.getCounter())
     });
 
-    after(function(){
+    // it('should pass the db test', async function(){
+    //     let greeting = greetFactory(pool);
+    //     await greeting.setName("Nzwakie");
+    //     // await greeting.setName("codex");
+    //     assert.equal("[
+    //         {
+    //           user_names: 'Nzwakie'
+    //         }
+    //       ]
+    //       ", await greeting.getNameList())
+    // });
+
+    it("should be able to set the language", function () {
+        let greeting = greetFactory();
+        greeting.setLanguage("english");
+        assert.equal("english", greeting.getLanguage("english"));
+
+        greeting.setLanguage("isixhosa");
+        assert.equal("isixhosa", greeting.getLanguage("isixhosa"));
+
+        greeting.setLanguage("afrikaans");
+        assert.equal("afrikaans", greeting.getLanguage("afrikaans"));
+    });
+
+    it("should be able to get the greeting from the selected language and entered name", function () {
+        let greeting = greetFactory();
+        greeting.setName("Nzwakie");
+        greeting.setLanguage("english");
+        assert.equal("Hello, Nzwakie", greeting.greetingMsg());
+
+        greeting.setName("Yonela");
+        greeting.setLanguage("afrikaans");
+        assert.equal("Goeie môre, Yonela", greeting.greetingMsg());
+
+        greeting.setName("Onele");
+        greeting.setLanguage("isixhosa");
+        assert.equal("Molo, Onele", greeting.greetingMsg());
+    });
+
+    // it('should pass the reset', async function(){
+    //     // the Factory Function is called greetFactory
+    //     let greeting = greetFactory(pool);
+    //     await greeting.setName("Nzwakie");
+    //     assert.equal(0, await greeting.reset())
+    // });
+
+    after(function () {
         pool.end();
     })
 });
