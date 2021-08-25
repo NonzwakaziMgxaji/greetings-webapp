@@ -14,9 +14,9 @@
         <form name="theForm" action="/greeting" method="POST">
 
             {{#if messages.warning}}
-            <span class="errorMsg" id="errorMessage">
+            <div class="errorMsg" id="errorMessage">
                 {{messages.warning}}
-            </span><br><br>
+            </div><br><br>
             {{/if}}
 
             <div class="textbox">
