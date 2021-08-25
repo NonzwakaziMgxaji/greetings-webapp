@@ -68,10 +68,9 @@ app.post("/greeting", async (req, res) => {
         }
         else if (!req.body.name && !req.body.language) {
             req.flash('warning', "Please enter name and select language");
-
-             setTimeout(() => {
-                req.flash('warning', "Please enter name and select language");
-             },2000);
+            //  setTimeout(() => {
+            //     req.flash('warning', "Please enter name and select language");
+            //  },2000);
 
         } else if (!req.body.name) {
             req.flash('warning', "Please enter name in the textbox below");
