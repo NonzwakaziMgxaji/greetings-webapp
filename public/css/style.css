@@ -95,7 +95,6 @@ a{
     background: green;
 }
 
-
 .counterName{
     font-weight: bold;
     color: #3E3F47;
@@ -111,8 +110,7 @@ form{
     margin: 10px;
 }
 
-
-@-webkit-keyframes errorMove {
+@keyframes errorDisappear {
     to {
         width: 0;
         height: 0;
@@ -125,9 +123,8 @@ form{
     font-weight: bold;
     font-size: large;
     margin: 10px;
-    -webkit-animation: errorMove 0s ease-in 3s forwards;
+    animation: errorDisappear 0s ease-in 3s forwards;
 }
-
 
 @media only screen and (min-width: 768px){
     .inputs{
@@ -179,7 +176,7 @@ form{
 }
 
 a{
-    text-decoration: none;
+    text-decoration: underline;
     color: #3E3F47;
 }
 

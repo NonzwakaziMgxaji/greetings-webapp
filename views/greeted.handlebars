@@ -12,16 +12,16 @@
 <body>
     <div class="container">
         <h1>NAMES GREETED</h1>
-    {{#each userList}}
-    {{!-- <ul><li><a href="/counter/{{@key}}">{{@key}}</a></li></ul> --}}
-    <ul><li><a href="/counter/{{user_names}}">{{user_names}}</a></li></ul>
-    {{!-- <style>#mydiv:hover{color:red;}</style> --}}
-    {{/each}}
+        {{#each userList}}
+        <ul>
+            <li><a href="/counter/{{user_names}}">{{user_names}}</a></li>
+        </ul>
+        {{/each}}
 
-    <a href="/" class="home">Home</a>
+        <a href="/" class="home">Home</a>
     </div>
 
-    
+
 </body>
 
 </html>

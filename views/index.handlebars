@@ -21,26 +21,24 @@
 
             <div class="textbox">
                 <label for="name">Name</label>
-                <input class="userName" type="text" id="name" name="name" placeholder="Enter your name" onkeypress="return (event.charCode > 64 && 
+                <input class="userName" type="text" id="name" name="name" placeholder="Enter your name" style="text-transform: capitalize;" onkeypress="return (event.charCode > 64 && 
                 event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
             </div>
 
             <div class=inputs>
-                <input class="radio" type="radio" name="language" id="english" value="english" >
+                <input class="radio" type="radio" name="language" id="english" value="english">
                 <label class="radioName" for="english">English</label><br><br>
-                <input class="radio" type="radio" name="language" id="afrikaans" value="afrikaans" >
+                <input class="radio" type="radio" name="language" id="afrikaans" value="afrikaans">
                 <label class="radioName" for="afrikaans">Afrikaans</label><br><br>
-                <input class="radio" type="radio" name="language" id="isixhosa" value="isixhosa" >
+                <input class="radio" type="radio" name="language" id="isixhosa" value="isixhosa">
                 <label class="radioName" for="isixhosa">IsiXhosa</label>
             </div><br>
 
             <div class="buttons">
                 <input class="greetBtn" type="submit" value="Greet Me">
-                {{!-- <input class="resetBtn" type="submit" value="Reset"> --}}
-                
             </div><br><br>
 
-            <span class="greeting" id="greetID">{{name}}</span><br><br>
+            <span class="greeting" id="greetID">{{message}}</span><br><br>
 
             <div class="counter">
                 <label class="counterName">COUNTER:</label>
@@ -52,10 +50,10 @@
         </form>
 
         <form action="/reset" method="POST">
-        <button type="submit" class="resetBtn">Reset</button>
+            <button type="submit" class="resetBtn">Reset</button>
         </form>
 
-      
+
     </div>
 </body>
 

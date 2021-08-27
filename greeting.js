@@ -1,22 +1,21 @@
 module.exports = function greetFactory(pool) {
     var username;
     var radioBtn;
-    var existingNames;
-    var namesGreeted = existingNames || {};
-
-    async function namesGreeted() {
-        namesGreeted = await pool.query("select distinct user_names from users");
-    }
 
     async function setName(name) {
-        username = name;
-        var q = await pool.query('insert into users (user_names, greeting_counts) values($1, $2)', [username, 1])
+        username = name[0].toUpperCase() + name.slice(1);
+        await pool.query('insert into users (user_names, greeting_counts) values($1, $2)', [username, 1])
     }
 
     function getName() {
         if (username) {
             return username;
         }
+    }
+    
+    async function namesGreeted() {
+   var x = await pool.query("select distinct user_names from users");
+    return x.rows[0].user_names;  
     }
 
     function setLanguage(language) {
@@ -39,34 +38,19 @@ module.exports = function greetFactory(pool) {
         }
     }
 
-    function nameVal(name) {
-        name = name.toLowerCase();
-
-        if (namesGreeted[name] === undefined) {
-            namesGreeted[name] = 1;
-        } else {
-            namesGreeted[name]++;
-        }
-    }
-
     async function getCounter() {
         var names = await pool.query("select distinct user_names from users")
         return names.rowCount;
     }
 
+    async function reset() {
+        var resetAll = await pool.query("delete from users")
+        return resetAll.rows;
+    }
 
     async function getNameList() {
         var names = await pool.query("select distinct user_names from users")
         return names.rows;
-    }
-
-    async function reset() {
-        var resetAll = await pool.query("delete from users")
-        return resetAll;
-    }
-
-    function getNamesGreeted() {
-        return namesGreeted;
     }
 
     async function getNameGreeted(name) {
@@ -83,12 +67,10 @@ module.exports = function greetFactory(pool) {
         setLanguage,
         getLanguage,
         greetingMsg,
-        nameVal,
         getCounter,
-        getNamesGreeted,
+        namesGreeted,
         getNameGreeted,
         reset,
         getNameList,
-        namesGreeted
     }
 }
