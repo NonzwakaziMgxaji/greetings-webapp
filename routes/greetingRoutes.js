@@ -63,7 +63,6 @@ module.exports = function routes(greetFactory) {
     async function reset(req, res, next) {
         try {
             var resetAll = await greetFactory.reset();
-            // await pool.query("truncate users")
             res.redirect("/")
         }
         catch (error) {
