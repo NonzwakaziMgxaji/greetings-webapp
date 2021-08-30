@@ -37,7 +37,7 @@ describe('The greetings-webapp database', function () {
         assert.equal(1, await greeting.getCounter())
     });
 
-    it("should be able to greet entered name in the language selected", function () {
+    it("should be able to greet the entered name in the language selected", function () {
         let greeting = greetFactory();
         greeting.setName("Nzwakie");
         greeting.setLanguage("english");
