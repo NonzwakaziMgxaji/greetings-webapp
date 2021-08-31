@@ -1,4 +1,13 @@
-# travis file
 language: node_js
 node_js:
   - 12
+
+env:
+  - DATABASE_URL=postgresql://postgres@localhost:5432/names_greeted_tests
+
+before_script:
+  - psql -c 'create database  names_greeted_tests;' -U postgres
+  - psql -U postgres -d names_greeted_tests -a -f users.sql
+
+services:
+  - postgresql
